@@ -109,7 +109,7 @@ def track_device(device):
 
 def commit_to_git(filename_time_stamp):
     """
-    Should probably use the develope API for this!
+    Should probably use the developer API for this!
 
     :param filename_time_stamp:
     :return:
