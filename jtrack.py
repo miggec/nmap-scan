@@ -68,15 +68,15 @@ def scan_home(device: str, stime=600):
                 time_spent_connected = None
 
         try:
-            connect_time_str = connect_time.isoformat(sep=" ", timespec='minutes')
+            connect_time_str = connect_time.isoformat(sep=" ")  # timespec='minutes') <-- Python 3.6 only...
         except AttributeError:
             pass
         try:
-            disconnect_time_str = disconnect_time.isoformat(sep=" ", timespec='minutes')
+            disconnect_time_str = disconnect_time.isoformat(sep=" ")  # timespec='minutes')
         except AttributeError:
             pass
 
-        time_stamp = datetime.datetime.now().isoformat(sep=" ", timespec='seconds')
+        time_stamp = datetime.datetime.now().isoformat(sep=" ")  # timespec='seconds')
 
         yield[time_stamp, already_connected, connect_time_str, disconnect_time_str, time_spent_connected]
 
