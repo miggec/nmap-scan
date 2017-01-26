@@ -104,17 +104,17 @@ def track_device(device):
                         append_file.write(str(column) + ",")
                     append_file.write("\n")
 
-            commit_to_git(filename_time_stamp)
+            commit_to_git(filename_time_stamp, csv_file_name)
 
 
-def commit_to_git(filename_time_stamp):
+def commit_to_git(filename_time_stamp, file_to_commit):
     """
     Should probably use the developer API for this!
 
     :param filename_time_stamp:
     :return:
     """
-    os.system("git add .")
+    os.system("git add " + file_to_commit)
     commit_command = 'git commit -m " autocommit @ ' + filename_time_stamp + '"'
     os.system(commit_command)
     os.system("git push -u origin master")
