@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b6a2c1eb-6f3a-4f4e-b0e3-94ae40f8f477" name="Default" comment="shortened stime for testing">
+    <list default="true" id="b6a2c1eb-6f3a-4f4e-b0e3-94ae40f8f477" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jtrack.py" afterPath="$PROJECT_DIR$/jtrack.py" />
     </list>
@@ -39,8 +39,8 @@
       <file leaf-file-name="jtrack.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jtrack.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+            <state relative-caret-position="180">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -453,7 +453,14 @@
       <option name="project" value="LOCAL" />
       <updated>1485468568276</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="moved stime to a argv input">
+      <created>1485468846039</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1485468846039</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -494,7 +501,8 @@
     <MESSAGE value="compatibility with python 3.4" />
     <MESSAGE value="deletd old test csvs&#10;" />
     <MESSAGE value="made git commit more specific - specified individual csv file" />
-    <option name="LAST_COMMIT_MESSAGE" value="made git commit more specific - specified individual csv file" />
+    <MESSAGE value="moved stime to a argv input" />
+    <option name="LAST_COMMIT_MESSAGE" value="moved stime to a argv input" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -543,8 +551,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jtrack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+        <state relative-caret-position="180">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

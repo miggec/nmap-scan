@@ -12,7 +12,7 @@ def device_connected(device: str):
         return True
 
 
-def scan_home(device: str, stime=sys.argv[2]):
+def scan_home(device: str, stime=int(sys.argv[2])):
     """
     Scans the network for a certain device
     Yields the connect and disconnect times at a time interval defined in seconds by stime
