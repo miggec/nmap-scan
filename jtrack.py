@@ -4,6 +4,7 @@ import datetime
 from time import sleep
 import sys
 
+print("Usage: python jtrack.py [known_device] [stime]")
 
 def device_connected(device: str):
     ip_scan = str(subprocess.check_output("nmap -sn 192.168.0.0/24", shell=True))
@@ -11,7 +12,7 @@ def device_connected(device: str):
         return True
 
 
-def scan_home(device: str, stime=600):
+def scan_home(device: str, stime=sys.argv[2]):
     """
     Scans the network for a certain device
     Yields the connect and disconnect times at a time interval defined in seconds by stime
