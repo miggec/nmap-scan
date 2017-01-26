@@ -91,7 +91,8 @@ def track_device(device):
         "Jesses-iPhone": "J_iPhone"
     }
 
-    csv_file_name = device_names[device] + datetime.datetime.now().strftime("_%a-%d-%b_%H%M%S") + ".csv"
+    filename_time_stamp = datetime.datetime.now().strftime("_%a-%d-%b_%H%M%S")
+    csv_file_name = device_names[device] + filename_time_stamp + ".csv"
 
     with open(csv_file_name, 'w', encoding='utf-8') as outfile:
         outfile.write("time_stamp, is_connected, connect_time, disconnect_time, time_spent_connected,\n")
@@ -102,6 +103,11 @@ def track_device(device):
                     for column in scan:
                         append_file.write(str(column) + ",")
                     append_file.write("\n")
+
+            os.system("git add .")
+            commit_command = 'git commit -m " autocommit @ ' + filename_time_stamp + '"'
+            os.system(commit_command)
+            os.system("git push -u origin master")
 
 known_devices = {
     "M": "android-fc090a3a8a86db64",
