@@ -11,7 +11,7 @@ def device_connected(device: str):
         return True
 
 
-def scan_home(device: str, stime=2):
+def scan_home(device: str, stime=600):
     """
     Scans the network for a certain device
     Yields the connect and disconnect times at a time interval defined in seconds by stime
@@ -76,7 +76,7 @@ def scan_home(device: str, stime=2):
         except AttributeError:
             pass
 
-        time_stamp = datetime.datetime.now().isoformat(sep=" ", timespec='minutes')
+        time_stamp = datetime.datetime.now().isoformat(sep=" ", timespec='seconds')
 
         yield[time_stamp, already_connected, connect_time_str, disconnect_time_str, time_spent_connected]
 
