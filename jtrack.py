@@ -11,7 +11,7 @@ def device_connected(device: str):
         return True
 
 
-def scan_home(device: str, stime=5):
+def scan_home(device: str, stime=2):
     """
     Scans the network for a certain device
     Yields the connect and disconnect times at a time interval defined in seconds by stime
@@ -52,7 +52,7 @@ def scan_home(device: str, stime=5):
                         false_alarm = True
                         break
                     elif not device_connected(device):
-                        sleep(2)  # TODO increase for prod
+                        sleep(10)  # TODO decrease for testing
 
                 if not false_alarm:
                     disconnect_time = possible_disconnect_time
@@ -68,11 +68,11 @@ def scan_home(device: str, stime=5):
                 time_spent_connected = None
 
         try:
-            connect_time_str = connect_time.isoformat(sep=" ", timespec='seconds')
+            connect_time_str = connect_time.isoformat(sep=" ", timespec='minutes')
         except AttributeError:
             pass
         try:
-            disconnect_time_str = disconnect_time.isoformat(sep=" ", timespec='seconds')
+            disconnect_time_str = disconnect_time.isoformat(sep=" ", timespec='minutes')
         except AttributeError:
             pass
 
@@ -104,7 +104,7 @@ def track_device(device):
                     append_file.write("\n")
 
 known_devices = {
-    "M_android": "android-fc090a3a8a86db64",
+    "M": "android-fc090a3a8a86db64",
     "J_android": "android-a7226cbab44b68c5",
     "J_iPhone": "Jesses-iPhone",
 }
