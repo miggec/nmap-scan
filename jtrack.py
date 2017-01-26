@@ -91,7 +91,7 @@ def track_device(device):
         "Jesses-iPhone": "J_iPhone"
     }
 
-    filename_time_stamp = datetime.datetime.now().strftime("_%a-%d-%b_%H%M%S")
+    filename_time_stamp = datetime.datetime.now().strftime("_%a-%d-%b_%H-%M-%S")
     csv_file_name = device_names[device] + filename_time_stamp + ".csv"
 
     with open(csv_file_name, 'w', encoding='utf-8') as outfile:
