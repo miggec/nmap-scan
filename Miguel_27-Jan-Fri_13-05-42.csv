@@ -1,5 +1,0 @@
-time_stamp, event, connect_ts, time_spent_disconnected, disconnect_ts, time_spent_connected,
-2017-01-27 13:23:14.554024,Reconnected,2017-01-27 13:23:14.553653,None,None,None,
-2017-01-27 14:41:17.426404,Disconnected,None,None,2017-01-27 14:37:11.015782,1:13:56,
-2017-01-27 15:10:19.315094,Reconnected,2017-01-27 15:10:19.314801,0:33:08,None,None,
-2017-01-27 15:17:28.390597,Disconnected,None,None,2017-01-27 15:12:50.113624,0:02:30,

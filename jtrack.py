@@ -6,10 +6,13 @@ import sys
 
 print("Usage: python jtrack.py [known_device] [stime]")
 
+
 def device_connected(device: str):
     ip_scan = str(subprocess.check_output("nmap -sn 192.168.0.0/24", shell=True))
     if ip_scan.__contains__(device):
         return True
+    else:
+        return False
 
 
 def scan_home(device: str, stime=int(sys.argv[2])):
@@ -30,9 +33,11 @@ def scan_home(device: str, stime=int(sys.argv[2])):
 
     while True:
 
-        if device_connected(device): # ("android-a7226cbab44b68c5")
+        if device_connected(device):
 
             if not already_connected:  # just reconnected
+
+                # TODO check if false alarm? some spurious results happening
 
                 event = "Reconnected"
 
@@ -124,6 +129,7 @@ def track_device(device):
                         append_file.write(str(column) + ",")
                     append_file.write("\n")
 
+            # TODO handle internet outage here
             commit_ts = datetime.datetime.now().strftime("%a-%d-%b_%H-%M-%S")
             commit_to_git(commit_ts, csv_file_name)
 
@@ -140,13 +146,8 @@ def commit_to_git(filename_time_stamp, file_to_commit):
     os.system(commit_command)
     os.system("git push -u origin master")
 
-known_devices = {
-    "M": "android-fc090a3a8a86db64",
-    "J_android": "android-a7226cbab44b68c5",
-    "J_iPhone": "Jesses-iPhone",
-}
 
-track_device(known_devices[sys.argv[1]])
+track_device(sys.argv[1])
 
 # android-9b72272b83db0551 = C
 # android-fc090a3a8a86db64 = M
