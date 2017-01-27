@@ -24,9 +24,7 @@ def scan_home(device: str, stime=int(sys.argv[2])):
     """
 
     already_connected = False
-    connect_time_str = None
     connect_ts = None
-    disconnect_time_str = None
     disconnect_ts = None
     time_spent_connected = None
 
@@ -113,7 +111,7 @@ def track_device(device):
         "Jesses-iPhone": "J_iPhone"
     }
 
-    filename_time_stamp = datetime.datetime.now().strftime("_%a-%d-%b_%H-%M-%S")
+    filename_time_stamp = datetime.datetime.now().strftime("_%d-%b-%a_%H-%M-%S")
     csv_file_name = device_names[device] + filename_time_stamp + ".csv"
 
     with open(csv_file_name, 'w', encoding='utf-8') as outfile:
@@ -126,7 +124,8 @@ def track_device(device):
                         append_file.write(str(column) + ",")
                     append_file.write("\n")
 
-            commit_to_git(filename_time_stamp, csv_file_name)
+            commit_ts = datetime.datetime.now().strftime("%a-%d-%b_%H-%M-%S")
+            commit_to_git(commit_ts, csv_file_name)
 
 
 def commit_to_git(filename_time_stamp, file_to_commit):

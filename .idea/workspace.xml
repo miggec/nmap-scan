@@ -2,6 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6a2c1eb-6f3a-4f4e-b0e3-94ae40f8f477" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Miguel_27-Jan-Fri_12-27-33.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Miguel_Fri-27-Jan_12-18-57.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Miguel_Fri-27-Jan_12-22-02.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Miguel_Fri-27-Jan_12-25-36.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Miguel_Fri-Jan-27_12-26-36.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Miguel_Thu-26-Jan_22-36-22.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Miguel_Thu-26-Jan_22-38-39.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jtrack.py" afterPath="$PROJECT_DIR$/jtrack.py" />
     </list>
@@ -39,8 +46,8 @@
       <file leaf-file-name="jtrack.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jtrack.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-801">
-              <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+            <state relative-caret-position="1012">
+              <caret line="113" column="69" selection-start-line="113" selection-start-column="69" selection-end-line="113" selection-end-column="69" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -469,7 +476,14 @@
       <option name="project" value="LOCAL" />
       <updated>1485468916692</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="updated csv format">
+      <created>1485519705147</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1485519705147</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -482,7 +496,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.265625" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31107953" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -511,7 +525,8 @@
     <MESSAGE value="deletd old test csvs&#10;" />
     <MESSAGE value="made git commit more specific - specified individual csv file" />
     <MESSAGE value="moved stime to a argv input" />
-    <option name="LAST_COMMIT_MESSAGE" value="moved stime to a argv input" />
+    <MESSAGE value="updated csv format" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated csv format" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -576,8 +591,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jtrack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-801">
-          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+        <state relative-caret-position="1012">
+          <caret line="113" column="69" selection-start-line="113" selection-start-column="69" selection-end-line="113" selection-end-column="69" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
