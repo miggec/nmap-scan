@@ -17,3 +17,4 @@ time_stamp, event, connect_ts, time_spent_disconnected, disconnect_ts, time_spen
 2017-01-27 23:15:10.079924,Disconnected,None,None,2017-01-27 23:11:35.552507,0:00:30,
 2017-01-27 23:25:47.155469,Reconnected,2017-01-27 23:25:47.154930,0:14:11,None,None,
 2017-01-27 23:32:05.443609,Disconnected,None,None,2017-01-27 23:26:22.939865,0:00:35,
+2017-01-27 23:40:42.392816,Reconnected,2017-01-27 23:40:42.392499,0:14:19,None,None,
