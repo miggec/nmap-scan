@@ -4,7 +4,11 @@ import datetime
 from time import sleep
 import sys
 
-print("Usage: python jtrack.py [known_device] [stime]")
+print("Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
+
+device_identifier = sys.argv[1]
+sleep_time = int(sys.argv[2])
+device_alias = sys.argv[3]
 
 
 def device_connected(device: str):
@@ -15,7 +19,7 @@ def device_connected(device: str):
         return False
 
 
-def scan_home(device: str, stime=int(sys.argv[2])):
+def scan_home(device: str, stime):
     """
     Scans the network for a certain device
     Yields the connect and disconnect times at a time interval defined in seconds by stime
@@ -110,14 +114,23 @@ def scan_result(connect_ts, time_spent_connected, disconnect_ts, time_spent_disc
 
 def track_device(device):
 
+    device_alias = sys.argv[3]
+    print("DEBUG")
+    print(device_alias)
+
+    if not device_alias:
+        device_alias = device
+
     filename_time_stamp = datetime.datetime.now().strftime("_%d-%b-%a_%H-%M-%S")
-    csv_file_name = device + filename_time_stamp + ".csv"
+    csv_file_name = device_alias + filename_time_stamp + ".csv"
+
+    os.chdir("csvs")
 
     with open(csv_file_name, 'w', encoding='utf-8') as outfile:
         outfile.write("time_stamp, event, connect_ts, time_spent_disconnected, disconnect_ts, time_spent_connected,\n")
 
     while True:
-        for scan in scan_home('android-fc090a3a8a86db64'):
+        for scan in scan_home(device, sleep_time):
             with open(csv_file_name, 'a', encoding='utf-8') as append_file:
                     for column in scan:
                         append_file.write(str(column) + ",")
@@ -139,6 +152,7 @@ def commit_to_git(filename_time_stamp, file_to_commit):
     :param filename_time_stamp:
     :return:
     """
+    os.chdir("csvs")
     os.system("git add " + file_to_commit)
     commit_command = 'git commit -m " autocommit @ ' + filename_time_stamp + '"'
     os.system(commit_command)
