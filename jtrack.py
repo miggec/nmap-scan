@@ -110,14 +110,8 @@ def scan_result(connect_ts, time_spent_connected, disconnect_ts, time_spent_disc
 
 def track_device(device):
 
-    device_names = {
-        "android-fc090a3a8a86db64": "Miguel",
-        "android-a7226cbab44b68c5": "J_Android",
-        "Jesses-iPhone": "J_iPhone"
-    }
-
     filename_time_stamp = datetime.datetime.now().strftime("_%d-%b-%a_%H-%M-%S")
-    csv_file_name = device_names[device] + filename_time_stamp + ".csv"
+    csv_file_name = device + filename_time_stamp + ".csv"
 
     with open(csv_file_name, 'w', encoding='utf-8') as outfile:
         outfile.write("time_stamp, event, connect_ts, time_spent_disconnected, disconnect_ts, time_spent_connected,\n")
@@ -129,9 +123,13 @@ def track_device(device):
                         append_file.write(str(column) + ",")
                     append_file.write("\n")
 
-            # TODO handle internet outage here
+            # TODO test this works during internet outage
             commit_ts = datetime.datetime.now().strftime("%a-%d-%b_%H-%M-%S")
-            commit_to_git(commit_ts, csv_file_name)
+            try:
+                commit_to_git(commit_ts, csv_file_name)
+            except Exception as e:
+                print(commit_ts)
+                print("\nGit commit failed with error:\n" + str(e) + "\n\nWill re-attempt at next event")
 
 
 def commit_to_git(filename_time_stamp, file_to_commit):
