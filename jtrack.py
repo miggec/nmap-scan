@@ -52,13 +52,13 @@ def scan_home(device: str, stime):
 
                 # TODO check if false alarm? some spurious results happening
 
-                event = "Reconnected"
+                event = "Connected"
 
                 # Calculate time spent disconnected and reset the disconnect timestamp
                 connect_ts = datetime.datetime.now()
                 try:
-                    time_delta = (connect_ts - disconnect_ts).total_seconds()
-                    time_spent_disconnected = str(datetime.timedelta(seconds=int(time_delta)))
+                    time_delta_seconds = (connect_ts - disconnect_ts).total_seconds()
+                    time_spent_disconnected = str(datetime.timedelta(seconds=int(time_delta_seconds)))
                 except TypeError:
                     time_spent_disconnected = None
                 disconnect_ts = None
@@ -67,37 +67,40 @@ def scan_home(device: str, stime):
                 print("Connected at", connect_ts)
                 print("Time spent connected:", time_spent_connected)
 
-                yield scan_result(connect_ts, time_spent_connected, disconnect_ts, time_spent_disconnected, event)
+                yield scan_result(connect_ts, time_spent_connected, time_spent_disconnected, event)
 
             if already_connected:  # remains connected_status
                 pass
 
         else:
             if already_connected:  # just disconnected?
-                false_alarm = False
+
                 possible_disconnect_time = datetime.datetime.now()  # save this time now, to report accurately later
 
-                for i in range(10):  # retries to be sure TODO a value of 10 seems sensible
-                    if device_connected(device):
-                        false_alarm = True
-                        break
-                    elif not device_connected(device):
-                        sleep(10)  # TODO decrease for testing
+                # for i in range(10):  # retries to be sure TODO a value of 10 seems sensible
+                #     if device_connected(device):
+                #         false_alarm = True
+                #         break
+                #     elif not device_connected(device):
+                #         false_alarm = False
+                #         sleep(10)  # TODO decrease for testing
 
-                if not false_alarm:
-                    event = "Disconnected"
-                    disconnect_ts = possible_disconnect_time
-                    time_delta = (disconnect_ts - connect_ts).total_seconds()
-                    time_spent_connected = str(datetime.timedelta(seconds=int(time_delta)))
-                    time_spent_disconnected = None
-                    connect_ts = None
+                # if not false_alarm:
 
-                    print("Disconnected at", disconnect_ts)
-                    print("Time spent connected:", time_spent_connected)
+                event = "Disconnected"
+                disconnect_ts = possible_disconnect_time
+                time_delta_seconds = (disconnect_ts - connect_ts).total_seconds()
+                time_spent_connected = str(datetime.timedelta(seconds=int(time_delta_seconds)))
+                time_spent_disconnected = None
+                connect_ts = None
 
-                    already_connected = False
+                print("Disconnected at", disconnect_ts)
+                print("Time spent connected:", time_spent_connected)
 
-                    yield scan_result(connect_ts, time_spent_connected, disconnect_ts, time_spent_disconnected, event)
+                already_connected = False
+
+                if time_delta_seconds > 300:  # Ignore temporary drop-outs
+                    yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
 
             elif not already_connected:  # remains disconnected
                 time_spent_connected = None
@@ -105,20 +108,16 @@ def scan_home(device: str, stime):
         sleep(stime)
 
 
-def scan_result(connect_ts, time_spent_connected, disconnect_ts, time_spent_disconnected, event):
+def scan_result(event_ts, time_spent_connected, time_spent_disconnected, event):
 
     try:
-        connect_time_str = connect_ts.isoformat(sep=" ")  # timespec='minutes') <-- Python 3.6 only...
+        event_time_str = event_ts.isoformat(sep=" ")  # timespec='minutes') <-- Python 3.6 only...
     except AttributeError:
-        connect_time_str = None
-    try:
-        disconnect_time_str = disconnect_ts.isoformat(sep=" ")  # timespec='minutes')
-    except AttributeError:
-        disconnect_time_str = None
+        event_time_str = "error"
 
     time_stamp = datetime.datetime.now().isoformat(sep=" ")  # timespec='seconds')
 
-    return [time_stamp, event, connect_time_str, time_spent_disconnected, disconnect_time_str, time_spent_connected]
+    return [time_stamp, event, event_time_str, time_spent_disconnected, time_spent_connected]
 
 
 def track_device(device, device_alias):
@@ -130,7 +129,7 @@ def track_device(device, device_alias):
     csv_file_name = device_alias + filename_time_stamp + ".csv"
 
     with open(csv_file_name, 'w', encoding='utf-8') as outfile:
-        outfile.write("time_stamp, event, connect_ts, time_spent_disconnected, disconnect_ts, time_spent_connected,\n")
+        outfile.write("time_stamp, event, event_ts, time_spent_disconnected, time_spent_connected,\n")
 
     while True:
         for scan in scan_home(device, sleep_time):
