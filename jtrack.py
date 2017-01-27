@@ -8,7 +8,16 @@ print("Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
 
 device_identifier = sys.argv[1]
 sleep_time = int(sys.argv[2])
-device_alias = sys.argv[3]
+
+try:
+    device_alias = sys.argv[3]
+except IndexError:
+    print("No device alias given, CSV output will use the device identifier", device_identifier, "instead")
+    device_alias = device_identifier
+
+# All file operations happen in the csvs folder
+cwd = os.getcwd()
+os.chdir(os.path.join(cwd, "csvs"))
 
 
 def device_connected(device: str):
@@ -112,19 +121,13 @@ def scan_result(connect_ts, time_spent_connected, disconnect_ts, time_spent_disc
     return [time_stamp, event, connect_time_str, time_spent_disconnected, disconnect_time_str, time_spent_connected]
 
 
-def track_device(device):
-
-    device_alias = sys.argv[3]
-    print("DEBUG")
-    print(device_alias)
+def track_device(device, device_alias):
 
     if not device_alias:
         device_alias = device
 
     filename_time_stamp = datetime.datetime.now().strftime("_%d-%b-%a_%H-%M-%S")
     csv_file_name = device_alias + filename_time_stamp + ".csv"
-
-    os.chdir("csvs")
 
     with open(csv_file_name, 'w', encoding='utf-8') as outfile:
         outfile.write("time_stamp, event, connect_ts, time_spent_disconnected, disconnect_ts, time_spent_connected,\n")
@@ -152,14 +155,13 @@ def commit_to_git(filename_time_stamp, file_to_commit):
     :param filename_time_stamp:
     :return:
     """
-    os.chdir("csvs")
     os.system("git add " + file_to_commit)
     commit_command = 'git commit -m " autocommit @ ' + filename_time_stamp + '"'
     os.system(commit_command)
     os.system("git push -u origin master")
 
 
-track_device(sys.argv[1])
+track_device(device_identifier, device_alias)
 
 # android-9b72272b83db0551 = C
 # android-fc090a3a8a86db64 = M
