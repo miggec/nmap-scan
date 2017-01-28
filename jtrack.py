@@ -4,8 +4,6 @@ import datetime
 from time import sleep
 import sys
 
-print("Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
-
 device_identifier = sys.argv[1]
 sleep_time = int(sys.argv[2])
 
@@ -21,6 +19,11 @@ os.chdir(os.path.join(cwd, "csvs"))
 
 
 def device_connected(device: str):
+    """
+    True/False - is 'device' seen on the network?
+    :param device: device name as returned by nmap
+    :return: bool
+    """
     ip_scan = str(subprocess.check_output("nmap -sn 192.168.0.0/24", shell=True))
     if ip_scan.__contains__(device):
         return True
@@ -50,12 +53,11 @@ def scan_home(device: str, stime):
 
             if not already_connected:  # just reconnected
 
-                # TODO check if false alarm? some spurious results happening
-
-                event = "Connected"
+                event = "Reconnected"
 
                 # Calculate time spent disconnected and reset the disconnect timestamp
                 connect_ts = datetime.datetime.now()
+                time_delta_seconds = 0
                 try:
                     time_delta_seconds = (connect_ts - disconnect_ts).total_seconds()
                     time_spent_disconnected = str(datetime.timedelta(seconds=int(time_delta_seconds)))
@@ -67,7 +69,11 @@ def scan_home(device: str, stime):
                 print("Connected at", connect_ts)
                 print("Time spent connected:", time_spent_connected)
 
-                yield scan_result(connect_ts, time_spent_connected, time_spent_disconnected, event)
+                if time_delta_seconds == 0:
+                    event = "Already connected"
+
+                if time_delta_seconds > 600 or time_delta_seconds == 0:  # ignore temporary dropouts
+                    yield scan_result(connect_ts, time_spent_connected, time_spent_disconnected, event)
 
             if already_connected:  # remains connected_status
                 pass
@@ -76,16 +82,6 @@ def scan_home(device: str, stime):
             if already_connected:  # just disconnected?
 
                 possible_disconnect_time = datetime.datetime.now()  # save this time now, to report accurately later
-
-                # for i in range(10):  # retries to be sure TODO a value of 10 seems sensible
-                #     if device_connected(device):
-                #         false_alarm = True
-                #         break
-                #     elif not device_connected(device):
-                #         false_alarm = False
-                #         sleep(10)  # TODO decrease for testing
-
-                # if not false_alarm:
 
                 event = "Disconnected"
                 disconnect_ts = possible_disconnect_time
@@ -99,7 +95,10 @@ def scan_home(device: str, stime):
 
                 already_connected = False
 
-                if time_delta_seconds > 300:  # Ignore temporary drop-outs
+                if time_delta_seconds == 0:
+                    event = "Currently disconnected"
+
+                if time_delta_seconds > 600 or time_delta_seconds == 0:  # Ignore temporary drop-outs
                     yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
 
             elif not already_connected:  # remains disconnected
@@ -109,6 +108,15 @@ def scan_home(device: str, stime):
 
 
 def scan_result(event_ts, time_spent_connected, time_spent_disconnected, event):
+    """
+    Formats timestamps and returns a row ready to be written to a results CSV
+
+    :param event_ts: datetime
+    :param time_spent_connected: datetime.timedelta
+    :param time_spent_disconnected: datetime.timedelta
+    :param event: string descriptor of event
+    :return: results list
+    """
 
     try:
         event_time_str = event_ts.isoformat(sep=" ")  # timespec='minutes') <-- Python 3.6 only...
@@ -121,6 +129,12 @@ def scan_result(event_ts, time_spent_connected, time_spent_disconnected, event):
 
 
 def track_device(device, device_alias):
+    """
+
+    :param device: device name on the network, e.g. "Mums-iPhone"
+    :param device_alias: Human alias for the device, nice to have if device name is gibberish. Used for CSV filename.
+    :return: Calls the scan_home function, writes results to CSV and pushes to github
+    """
 
     if not device_alias:
         device_alias = device
@@ -160,7 +174,15 @@ def commit_to_git(filename_time_stamp, file_to_commit):
     os.system("git push -u origin master")
 
 
-track_device(device_identifier, device_alias)
+# ******************** - ( \ * / ) - ******************** #
+
+try:
+    track_device(device_identifier, device_alias)
+except Exception as e:
+    print("Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
+    print(e)
+    raise e
+
 
 # android-9b72272b83db0551 = C
 # android-fc090a3a8a86db64 = M
