@@ -123,7 +123,7 @@ def scan_result(event_ts, time_spent_connected, time_spent_disconnected, event):
     except AttributeError:
         event_time_str = "error"
 
-    time_stamp = datetime.datetime.now().isoformat(sep=" ")  # timespec='seconds')
+    time_stamp = datetime.datetime.now().isoformat(sep=" ")[:-7]  # timespec='seconds')
 
     return [time_stamp, event, event_time_str, time_spent_disconnected, time_spent_connected]
 
