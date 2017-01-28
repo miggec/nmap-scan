@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b6a2c1eb-6f3a-4f4e-b0e3-94ae40f8f477" name="Default" comment="removed 'false alarm disconnected' and ignore disconnect times lower than 300 secs instead. Changed csv format to have a single event timestamp">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/J_droid_27-Jan-Fri_16-36-21.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/J_droid_27-Jan-Fri_23-58-49.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/J_iPhone_27-Jan-Fri_16-38-29.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/J_iPhone_27-Jan-Fri_23-57-18.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/M_droid_27-Jan-Fri_16-37-03.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/M_droid_27-Jan-Fri_23-58-09.csv" afterPath="" />
+    <list default="true" id="b6a2c1eb-6f3a-4f4e-b0e3-94ae40f8f477" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/csvs/readme.md" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/J_iPhone_28-Jan-Sat_12-40-10.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/M_droid_28-Jan-Sat_12-40-30.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jtrack.py" afterPath="$PROJECT_DIR$/jtrack.py" />
     </list>
@@ -45,11 +42,21 @@
       <file leaf-file-name="jtrack.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jtrack.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1860">
-              <caret line="184" column="0" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
+            <state relative-caret-position="210">
+              <caret line="117" column="25" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/csvs/readme.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -74,6 +81,7 @@
         <option value="$PROJECT_DIR$/whoishome.py" />
         <option value="$PROJECT_DIR$/test_csv.csv" />
         <option value="$PROJECT_DIR$/Miguel_Thu-26-Jan_184937.csv" />
+        <option value="$PROJECT_DIR$/csvs/readme.md" />
         <option value="$PROJECT_DIR$/jtrack.py" />
       </list>
     </option>
@@ -126,6 +134,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="whoishome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="whoishome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csvs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -148,7 +170,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/J_iPhone_27-Jan-Fri_16-38-29.csv</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -156,9 +177,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/J_droid_27-Jan-Fri_23-58-49.csv</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/J_iPhone_27-Jan-Fri_23-57-18.csv</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/M_droid_27-Jan-Fri_23-58-09.csv</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/J_iPhone_28-Jan-Sat_12-40-10.csv</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/M_droid_28-Jan-Sat_12-40-30.csv</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -531,19 +551,26 @@
       <option name="project" value="LOCAL" />
       <updated>1485561023064</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="ignore any event if connect/disconnect less than 10 mins. Added special events for beginning of script (time_delta = 0). Moved usage message to print if any exception thrown. Added docstrings to all functions.">
+      <created>1485607128156</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1485607128156</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2555686" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -580,7 +607,8 @@
     <MESSAGE value="last commit broke things" />
     <MESSAGE value="removed old csvs" />
     <MESSAGE value="removed 'false alarm disconnected' and ignore disconnect times lower than 300 secs instead. Changed csv format to have a single event timestamp" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed 'false alarm disconnected' and ignore disconnect times lower than 300 secs instead. Changed csv format to have a single event timestamp" />
+    <MESSAGE value="ignore any event if connect/disconnect less than 10 mins. Added special events for beginning of script (time_delta = 0). Moved usage message to print if any exception thrown. Added docstrings to all functions." />
+    <option name="LAST_COMMIT_MESSAGE" value="ignore any event if connect/disconnect less than 10 mins. Added special events for beginning of script (time_delta = 0). Moved usage message to print if any exception thrown. Added docstrings to all functions." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -645,10 +673,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/csvs/readme.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/jtrack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1860">
-          <caret line="184" column="0" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
+        <state relative-caret-position="210">
+          <caret line="117" column="25" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

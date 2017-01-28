@@ -119,7 +119,7 @@ def scan_result(event_ts, time_spent_connected, time_spent_disconnected, event):
     """
 
     try:
-        event_time_str = event_ts.isoformat(sep=" ")  # timespec='minutes') <-- Python 3.6 only...
+        event_time_str = event_ts.isoformat(sep=" ")[:-7]  # timespec='minutes') <-- Python 3.6 only...
     except AttributeError:
         event_time_str = "error"
 
