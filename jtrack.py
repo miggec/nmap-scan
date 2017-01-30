@@ -36,13 +36,15 @@ def scan_home(device: str, stime):
     Scans the network for a certain device
     Yields the connect and disconnect times at a time interval defined in seconds by stime
     Also yields the time last spent connected if the device has just disconnected
+    Checks for false alarm if disconnect detected, makes sure before reporting
+    Only reports 'reconnected' if disconnected for more than 90 seconds - otherwise no event happens
 
     :param device: device name to scan for
     :param stime: sleep time between scan attempts
     :return:
     """
 
-    already_connected = False
+    currently_connected = False
     connect_ts = None
     disconnect_ts = None
     time_spent_connected = None
@@ -51,58 +53,67 @@ def scan_home(device: str, stime):
 
         if device_connected(device):
 
-            if not already_connected:  # just reconnected
+            if not currently_connected:  # just reconnected
 
                 event = "Reconnected"
 
                 # Calculate time spent disconnected and reset the disconnect timestamp
                 connect_ts = datetime.datetime.now()
                 time_delta_seconds = 0
+
                 try:
                     time_delta_seconds = (connect_ts - disconnect_ts).total_seconds()
                     time_spent_disconnected = str(datetime.timedelta(seconds=int(time_delta_seconds)))
                 except TypeError:
                     time_spent_disconnected = None
-                disconnect_ts = None
 
-                already_connected = True
+                disconnect_ts = None
+                if time_delta_seconds > 90 or time_delta_seconds == 0:  # ignore temporary dropouts
+                    currently_connected = True
+
                 print("Connected at", connect_ts)
                 print("Time spent connected:", time_spent_connected)
 
                 if time_delta_seconds == 0:
-                    event = "Already connected"
+                    event = "Currently connected"
 
-                if time_delta_seconds > 600 or time_delta_seconds == 0:  # ignore temporary dropouts
+                if currently_connected:
                     yield scan_result(connect_ts, time_spent_connected, time_spent_disconnected, event)
 
-            if already_connected:  # remains connected_status
-                pass
+        elif not device_connected(device):
 
-        else:
-            if already_connected:  # just disconnected?
+            if currently_connected:  # just disconnected?
 
                 possible_disconnect_time = datetime.datetime.now()  # save this time now, to report accurately later
+                false_alarm = False
 
-                event = "Disconnected"
-                disconnect_ts = possible_disconnect_time
-                time_delta_seconds = (disconnect_ts - connect_ts).total_seconds()
-                time_spent_connected = str(datetime.timedelta(seconds=int(time_delta_seconds)))
-                time_spent_disconnected = None
-                connect_ts = None
+                for i in range(8):
+                    if device_connected(device):
+                        false_alarm = True
+                    else:
+                        sleep(15)
 
-                print("Disconnected at", disconnect_ts)
-                print("Time spent connected:", time_spent_connected)
+                if not false_alarm:
+                    event = "Disconnected"
 
-                already_connected = False
+                    disconnect_ts = possible_disconnect_time
+                    time_delta_seconds = (disconnect_ts - connect_ts).total_seconds()
+                    time_spent_connected = str(datetime.timedelta(seconds=int(time_delta_seconds)))
 
-                if time_delta_seconds == 0:
-                    event = "Currently disconnected"
+                    time_spent_disconnected = None
+                    connect_ts = None
 
-                if time_delta_seconds > 600 or time_delta_seconds == 0:  # Ignore temporary drop-outs
-                    yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
+                    print("Disconnected at", disconnect_ts)
+                    print("Time spent connected:", time_spent_connected)
 
-            elif not already_connected:  # remains disconnected
-                time_spent_connected = None
+                    currently_connected = False
+
+                    if time_delta_seconds == 0:
+                        event = "Currently disconnected"
+                        yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
+
+                    else:
+                        yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
 
         sleep(stime)
 

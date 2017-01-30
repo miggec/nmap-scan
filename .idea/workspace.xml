@@ -39,8 +39,8 @@
       <file leaf-file-name="jtrack.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jtrack.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="121" column="93" selection-start-line="121" selection-start-column="93" selection-end-line="121" selection-end-column="93" />
+            <state relative-caret-position="-30">
+              <caret line="39" column="100" selection-start-line="39" selection-start-column="100" selection-end-line="39" selection-end-column="100" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -174,8 +174,10 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/J_iPhone_28-Jan-Sat_12-40-10.csv</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/M_droid_28-Jan-Sat_12-40-30.csv</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/J_droid_28-Jan-Sat_12-45-15.csv</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/J_iPhone_28-Jan-Sat_12-44-39.csv</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/J_iPhone_30-Jan-Mon_07-30-46.csv</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/csvs/M_droid_28-Jan-Sat_12-44-53.csv</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -562,7 +564,14 @@
       <option name="project" value="LOCAL" />
       <updated>1485607442580</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="forgot about the 'timestamp' timestamp. Now formatted without milliseconds.">
+      <created>1485607637149</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1485607637149</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -613,7 +622,8 @@
     <MESSAGE value="removed 'false alarm disconnected' and ignore disconnect times lower than 300 secs instead. Changed csv format to have a single event timestamp" />
     <MESSAGE value="ignore any event if connect/disconnect less than 10 mins. Added special events for beginning of script (time_delta = 0). Moved usage message to print if any exception thrown. Added docstrings to all functions." />
     <MESSAGE value="formatted timestamp strings to lose the milliseconds" />
-    <option name="LAST_COMMIT_MESSAGE" value="formatted timestamp strings to lose the milliseconds" />
+    <MESSAGE value="forgot about the 'timestamp' timestamp. Now formatted without milliseconds." />
+    <option name="LAST_COMMIT_MESSAGE" value="forgot about the 'timestamp' timestamp. Now formatted without milliseconds." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -688,8 +698,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jtrack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="121" column="93" selection-start-line="121" selection-start-column="93" selection-end-line="121" selection-end-column="93" />
+        <state relative-caret-position="-30">
+          <caret line="39" column="100" selection-start-line="39" selection-start-column="100" selection-end-line="39" selection-end-column="100" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
