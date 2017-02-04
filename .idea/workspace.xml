@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b6a2c1eb-6f3a-4f4e-b0e3-94ae40f8f477" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jtrack.py" afterPath="$PROJECT_DIR$/jtrack.py" />
     </list>
     <ignored path="whoishome.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -586,7 +585,14 @@
       <option name="project" value="LOCAL" />
       <updated>1486207391457</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="clear connected_time on connect, removed unnecessary TODOs">
+      <created>1486242838053</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1486242838053</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
