@@ -72,7 +72,8 @@ def scan_home(device: str, stime):
                     currently_connected = True
 
                 print("Connected at", connect_ts)
-                print("Time spent connected:", time_spent_connected)
+                print("Time spent disconnected:", time_spent_disconnected)
+                time_spent_connected = 0
 
                 if time_delta_seconds == 0:
                     event = "Currently connected"
@@ -163,7 +164,6 @@ def track_device(device, device_alias):
                         append_file.write(str(column) + ",")
                     append_file.write("\n")
 
-            # TODO test this works during internet outage
             commit_ts = datetime.datetime.now().strftime("%a-%d-%b_%H-%M-%S")
             try:
                 commit_to_git(commit_ts, csv_file_name)
