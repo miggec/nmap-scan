@@ -24,11 +24,7 @@ def device_connected(device: str):
     :param device: device name as returned by nmap
     :return: bool
     """
-    ip_scan = str(subprocess.check_output("nmap -sn 192.168.0.0/24", shell=True))
-    if ip_scan.__contains__(device):
-        return True
-    else:
-        return False
+    return device in str(subprocess.check_output("nmap -sn 192.168.0.0/24", shell=True))
 
 
 def scan_home(device: str, stime):
@@ -47,74 +43,79 @@ def scan_home(device: str, stime):
     currently_connected = False
     connect_ts = None
     disconnect_ts = None
-    time_spent_connected = None
 
     while True:
 
-        if device_connected(device):
+        if device_connected(device) and not currently_connected:  # just reconnected
 
-            if not currently_connected:  # just reconnected
+            event = "Reconnected"
 
-                event = "Reconnected"
+            # Calculate time spent disconnected and reset the disconnect timestamp
+            connect_ts = datetime.datetime.now()
 
-                # Calculate time spent disconnected and reset the disconnect timestamp
-                connect_ts = datetime.datetime.now()
+            try:
+                time_delta_seconds = (connect_ts - disconnect_ts).total_seconds()
+                time_spent_disconnected = str(datetime.timedelta(seconds=int(time_delta_seconds)))
+            except TypeError:
+                time_spent_disconnected = None
                 time_delta_seconds = 0
 
-                try:
-                    time_delta_seconds = (connect_ts - disconnect_ts).total_seconds()
-                    time_spent_disconnected = str(datetime.timedelta(seconds=int(time_delta_seconds)))
-                except TypeError:
-                    time_spent_disconnected = None
+            disconnect_ts = None
+            if time_delta_seconds > 90 or time_delta_seconds == 0:  # ignore temporary dropouts
+                currently_connected = True
 
-                disconnect_ts = None
-                if time_delta_seconds > 90 or time_delta_seconds == 0:  # ignore temporary dropouts
-                    currently_connected = True
+            print("Connected at", connect_ts)
+            print("Time spent disconnected:", time_spent_disconnected)
+            time_spent_connected = 0
 
-                print("Connected at", connect_ts)
-                print("Time spent disconnected:", time_spent_disconnected)
-                time_spent_connected = 0
+            if time_delta_seconds == 0:
+                event = "Currently connected"
+
+            if currently_connected:
+                yield scan_result(connect_ts, time_spent_connected, time_spent_disconnected, event)
+
+        elif not device_connected(device) and currently_connected:  # just disconnected?
+
+            # Record timestamp before assessing for false alarm / very short disconnect
+            possible_disconnect_time = datetime.datetime.now()
+            false_alarm = False
+
+            for i in range(8):
+                if device_connected(device):
+                    false_alarm = True
+                else:
+                    sleep(15)
+
+            if not false_alarm:
+                event = "Disconnected"
+
+                disconnect_ts = possible_disconnect_time
+                time_delta_seconds = (disconnect_ts - connect_ts).total_seconds()
+                time_spent_connected = str(datetime.timedelta(seconds=int(time_delta_seconds)))
+
+                time_spent_disconnected = None
+                connect_ts = None
+
+                print("Disconnected at", disconnect_ts)
+                print("Time spent connected:", time_spent_connected)
+
+                currently_connected = False
 
                 if time_delta_seconds == 0:
-                    event = "Currently connected"
+                    event = "Currently disconnected"
+                    yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
 
-                if currently_connected:
-                    yield scan_result(connect_ts, time_spent_connected, time_spent_disconnected, event)
+                else:
+                    yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
 
-        elif not device_connected(device):
+        elif not device_connected(device) and not disconnect_ts:
 
-            if currently_connected:  # just disconnected?
-
-                possible_disconnect_time = datetime.datetime.now()  # save this time now, to report accurately later
-                false_alarm = False
-
-                for i in range(8):
-                    if device_connected(device):
-                        false_alarm = True
-                    else:
-                        sleep(15)
-
-                if not false_alarm:
-                    event = "Disconnected"
-
-                    disconnect_ts = possible_disconnect_time
-                    time_delta_seconds = (disconnect_ts - connect_ts).total_seconds()
-                    time_spent_connected = str(datetime.timedelta(seconds=int(time_delta_seconds)))
-
-                    time_spent_disconnected = None
-                    connect_ts = None
-
-                    print("Disconnected at", disconnect_ts)
-                    print("Time spent connected:", time_spent_connected)
-
-                    currently_connected = False
-
-                    if time_delta_seconds == 0:
-                        event = "Currently disconnected"
-                        yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
-
-                    else:
-                        yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
+            event = "Currently disconnected"
+            disconnect_ts = datetime.datetime.now()
+            print("Disconnected at", disconnect_ts)
+            time_spent_connected = None
+            time_spent_disconnected = None
+            yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
 
         sleep(stime)
 
@@ -129,14 +130,10 @@ def scan_result(event_ts, time_spent_connected, time_spent_disconnected, event):
     :param event: string descriptor of event
     :return: results list
     """
+    event_time_str = event_ts.strftime("%a %d %b %H:%M")
+    time_stamp = datetime.datetime.now().isoformat(sep=" ")[:-7]
 
-    try:
-        event_time_str = event_ts.isoformat(sep=" ")[:-7]  # timespec='minutes') <-- Python 3.6 only...
-    except AttributeError:
-        event_time_str = "error"
-
-    time_stamp = datetime.datetime.now().isoformat(sep=" ")[:-7]  # timespec='seconds')
-
+    print("Event: ", [time_stamp, event, event_time_str, time_spent_disconnected, time_spent_connected])
     return [time_stamp, event, event_time_str, time_spent_disconnected, time_spent_connected]
 
 
@@ -180,17 +177,15 @@ def commit_to_git(filename_time_stamp, file_to_commit):
     :return:
     """
     os.system("git add " + file_to_commit)
-    commit_command = 'git commit -m " autocommit @ ' + filename_time_stamp + '"'
-    os.system(commit_command)
+    os.system('git commit -m " autocommit @ ' + filename_time_stamp + '"')
     os.system("git push -u origin master")
-
 
 # ******************** - ( \ * / ) - ******************** #
 
 try:
     track_device(device_identifier, device_alias)
 except Exception as e:
-    print("Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
+    print("Woops! Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
     print(e)
     raise e
 
