@@ -173,6 +173,12 @@ if __name__ == '__main__':
     # All file operations happen in the csvs folder
     cwd = os.getcwd()
     os.chdir(os.path.join(cwd, "csvs"))
+    
+    try:
+        device_identifier = sys.argv[1]
+        sleep_time = int(sys.argv[2])
+    except IndexError:
+        print("Woops! Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
 
     try:
         device_alias = sys.argv[3]
@@ -181,8 +187,6 @@ if __name__ == '__main__':
         device_alias = device_identifier
         
     try:
-        device_identifier = sys.argv[1]
-        sleep_time = int(sys.argv[2])
         track_device(device_identifier, device_alias)
     except Exception as e:
         print("Woops! Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
