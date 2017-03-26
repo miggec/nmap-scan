@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6a2c1eb-6f3a-4f4e-b0e3-94ae40f8f477" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/Chromecast_30-Jan-Mon_22-30-04.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/J_droid_28-Jan-Sat_12-45-15.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/J_iPhone_28-Jan-Sat_12-44-39.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/J_iPhone_30-Jan-Mon_07-30-46.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/J_iPhone_30-Jan-Mon_22-17-40.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/M_droid_28-Jan-Sat_12-44-53.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/csvs/m-droid_30-Jan-Mon_22-29-17.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jtrack.py" afterPath="$PROJECT_DIR$/jtrack.py" />
     </list>
     <ignored path="whoishome.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,8 +38,8 @@
       <file leaf-file-name="jtrack.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jtrack.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+            <state relative-caret-position="2370">
+              <caret line="158" column="41" selection-start-line="158" selection-start-column="41" selection-end-line="158" selection-end-column="41" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -439,7 +431,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="whoishome" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jtrack.py" />
-      <option name="PARAMETERS" value="&quot;android-fc090a3a8a86db64&quot; 5" />
+      <option name="PARAMETERS" value="android-fc090a3a8a86db64 10" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
@@ -586,7 +578,21 @@
       <option name="project" value="LOCAL" />
       <updated>1485814962775</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="clear connected_time on connect, removed unnecessary TODOs">
+      <created>1486207391457</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1486207391457</updated>
+    </task>
+    <task id="LOCAL-00019" summary="clear connected_time on connect, removed unnecessary TODOs">
+      <created>1486242838053</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1486242838053</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -639,7 +645,8 @@
     <MESSAGE value="formatted timestamp strings to lose the milliseconds" />
     <MESSAGE value="forgot about the 'timestamp' timestamp. Now formatted without milliseconds." />
     <MESSAGE value="added false alarm disconnect check, removed 'time disconnected' check for reconnect event, changed handling of false alarms" />
-    <option name="LAST_COMMIT_MESSAGE" value="added false alarm disconnect check, removed 'time disconnected' check for reconnect event, changed handling of false alarms" />
+    <MESSAGE value="clear connected_time on connect, removed unnecessary TODOs" />
+    <option name="LAST_COMMIT_MESSAGE" value="clear connected_time on connect, removed unnecessary TODOs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -714,8 +721,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jtrack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+        <state relative-caret-position="2370">
+          <caret line="158" column="41" selection-start-line="158" selection-start-column="41" selection-end-line="158" selection-end-column="41" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
