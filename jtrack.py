@@ -55,7 +55,7 @@ def scan_home(device: str, stime):
             print("Time spent disconnected:", time_spent_disconnected)
             time_spent_connected = None
 
-            if time_delta_seconds == 0:
+            if time_delta_seconds == 0 and not disconnect_ts:
                 event = "Currently connected"
                 currently_connected = True
 
@@ -89,12 +89,7 @@ def scan_home(device: str, stime):
 
                 currently_connected = False
 
-                if time_delta_seconds == 0:
-                    event = "Currently disconnected"
-                    yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
-
-                else:
-                    yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
+                yield scan_result(disconnect_ts, time_spent_connected, time_spent_disconnected, event)
 
         elif not device_connected(device) and not disconnect_ts:
 
