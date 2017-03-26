@@ -4,19 +4,6 @@ import datetime
 from time import sleep
 import sys
 
-device_identifier = sys.argv[1]
-sleep_time = int(sys.argv[2])
-
-try:
-    device_alias = sys.argv[3]
-except IndexError:
-    print("No device alias given, CSV output will use the device identifier", device_identifier, "instead")
-    device_alias = device_identifier
-
-# All file operations happen in the csvs folder
-cwd = os.getcwd()
-os.chdir(os.path.join(cwd, "csvs"))
-
 
 def device_connected(device: str):
     """
@@ -180,14 +167,31 @@ def commit_to_git(filename_time_stamp, file_to_commit):
     os.system('git commit -m " autocommit @ ' + filename_time_stamp + '"')
     os.system("git push -u origin master")
 
-# ******************** - ( \ * / ) - ******************** #
 
-try:
-    track_device(device_identifier, device_alias)
-except Exception as e:
-    print("Woops! Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
-    print(e)
-    raise e
+if __name__ == '__main__':
+    
+    # All file operations happen in the csvs folder
+    cwd = os.getcwd()
+    os.chdir(os.path.join(cwd, "csvs"))
+    
+    try:
+        device_identifier = sys.argv[1]
+        sleep_time = int(sys.argv[2])
+    except IndexError:
+        print("Woops! Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
+
+    try:
+        device_alias = sys.argv[3]
+    except IndexError:
+        print("No device alias given, CSV output will use the device identifier", device_identifier, "instead")
+        device_alias = device_identifier
+        
+    try:
+        track_device(device_identifier, device_alias)
+    except Exception as e:
+        print("Woops! Usage: python jtrack.py [device identifier] [sleep time] [device alias]")
+        print(e)
+        raise e
 
 
 # android-9b72272b83db0551 = C
