@@ -20,7 +20,7 @@ def scan_home(device: str, stime):
     Yields the connect and disconnect times at a time interval defined in seconds by stime
     Also yields the time last spent connected if the device has just disconnected
     Checks for false alarm if disconnect detected, makes sure before reporting
-    Only reports 'reconnected' if disconnected for more than 90 seconds - otherwise no event happens
+    Only reports 'reconnected' if disconnected for more than 2 minutes - otherwise no event happens
 
     :param device: device name to scan for
     :param stime: sleep time between scan attempts
@@ -53,10 +53,11 @@ def scan_home(device: str, stime):
 
             print("Connected at", connect_ts)
             print("Time spent disconnected:", time_spent_disconnected)
-            time_spent_connected = 0
+            time_spent_connected = None
 
             if time_delta_seconds == 0:
                 event = "Currently connected"
+                currently_connected = True
 
             if currently_connected:
                 yield scan_result(connect_ts, time_spent_connected, time_spent_disconnected, event)
